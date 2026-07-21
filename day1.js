@@ -29,4 +29,8 @@ function averageArray(arr) {
     return sumArray(arr) / arr.length;
 }
 
+
 console.log(averageArray(numbers));
+
+console.log(averageArray(numbers));
+
