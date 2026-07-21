@@ -1,0 +1,64 @@
+Bug Report
+
+Title
+Login page accepts passwords shorter than the required minimum length of 8 characters
+
+Steps to Reproduce
+
+Open the application login page.
+Enter a valid username or email address.
+Enter a password containing only 3 characters (e.g., abc).
+Click the Login button.
+Observe the application's behavior.
+
+Expected Result
+The application should reject passwords shorter than 8 characters and display a validation message such as:
+"Password must be at least 8 characters long."
+The login request should not be processed.
+
+Actual Result
+The application accepts a 3-character password and proceeds with the login process instead of enforcing the minimum password length requirement.
+
+Severity: Major
+Justification:
+This is a functional and security-related issue because the application fails to enforce the specified password policy. Weak passwords increase the risk of unauthorized access. However, the application is still operational, so it is not considered Critical.
+
+Priority: High
+Justification:
+This defect should be fixed as soon as possible because it affects authentication security and violates the documented requirement. Password validation issues should be addressed before the application is released.
+
+Environment
+
+Application: Web Login Portal
+Build Version: v2.4.1
+Browser: Google Chrome 138.0.7204.97 (64-bit)
+Operating System: Windows 11 Pro (24H2)
+Device: Desktop PC
+Test Environment: QA/Staging
+
+
+Test Cases – Password Field Validation (Boundary Value Analysis)
+
+Requirement: The password must contain a minimum of 8 characters.
+
+Test Case ID	Test Scenario	Steps	Expected Result
+TC_PWD_001	Verify password with 7 characters (Boundary - Invalid)	1. Open the login page.
+2. Enter a valid username.
+3. Enter a password with exactly 7 characters (e.g., Pass123).
+4. Click Login.	The system should reject the password and display an error message such as "Password must be at least 8 characters long." Login should not proceed.
+TC_PWD_002	Verify password with 8 characters (Boundary - Valid)	1. Open the login page.
+2. Enter a valid username.
+3. Enter a password with exactly 8 characters (e.g., Pass1234).
+4. Click Login.	The password should be accepted. If the credentials are valid, the user should be logged in successfully.
+TC_PWD_003	Verify password with 9 characters (Boundary +1)	1. Open the login page.
+2. Enter a valid username.
+3. Enter a password with exactly 9 characters (e.g., Pass12345).
+4. Click Login.	The password should be accepted. If the credentials are valid, the user should be logged in successfully.
+TC_PWD_004	Verify empty password	1. Open the login page.
+2. Enter a valid username.
+3. Leave the password field empty.
+4. Click Login.	The system should display a validation message such as "Password is required." Login should not proceed.
+TC_PWD_005	Verify password containing special characters/spaces only	1. Open the login page.
+2. Enter a valid username.
+3. Enter a password containing only special characters or spaces (e.g., !!!!!!!!, @@@@@@@@, or ).
+4. Click Login.	The system should validate according to the password policy. If passwords require at least one letter or number, the input should be rejected with an appropriate error message. If no such rule exists, the system should still correctly enforce the minimum length and reject passwords consisting only of spaces.
